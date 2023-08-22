@@ -24,7 +24,7 @@ services:
     volumes:
       - static:/frontend_static
   gateway:
-    image: kittygram_gateway
+    image: valeriyem/kittygram_gateway
     env_file: .env
     ports:
       - 8000:80
