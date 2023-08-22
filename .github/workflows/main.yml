@@ -26,9 +26,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-    # Копируем код проекта
-    - name: Check out code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     # Устанавливаем Python с помощью action
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -59,3 +57,24 @@ jobs:
         python -m flake8 backend/
         cd backend/
         python manage.py test
+
+  frontend_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    - name: Set up NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: |
+        cd frontend/
+        npm i
+
+    - name: Test frontend
+      run: |
+        cd frontend/
+        npm run test
+
